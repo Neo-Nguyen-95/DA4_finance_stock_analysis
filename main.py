@@ -14,13 +14,8 @@ pio.renderers.default='browser'
 
 
 # my customized package
-# from data_processing.cafef_scraping import FinanceStat
-from data_processing.data_cleaning import wrangle
+from module_data_cleaning import wrangle
 # from fin_analysis.income_statement import ...
-
-# export data to .csv file, only use once to download data
-# data = FinanceStat('pnj')
-# data.export_findata(form='csv')
 
 df_income = wrangle('pnj_incsta.csv')
 df_income.columns
