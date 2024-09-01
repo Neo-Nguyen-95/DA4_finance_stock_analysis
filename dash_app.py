@@ -15,9 +15,8 @@ pio.renderers.default='browser'
 
 # my customized package
 from module_data_cleaning import wrangle
-# from fin_analysis.income_statement import ...
 
-df_income = wrangle('pnj_incsta.csv')
+df_income = wrangle('PNJ_income.csv')
 df_income.columns
 
 #%% I. ANALYZE INCOME DATA
@@ -58,8 +57,9 @@ app.layout = html.Div([
     # PART I
     dcc.Markdown(children=intro_part_i),
     
-    dcc.Dropdown(df_income.columns, '0. Year', id='income_stat_items'),
+    dcc.Dropdown(df_income.columns, df_income.columns[1], id='income_stat_items'),
     dcc.Graph(id='annual_growth_currency', figure={}),
+    dcc.Graph(id='annual_growth_percent', figure={}),
     
     ])
 
@@ -71,7 +71,27 @@ app.layout = html.Div([
 def annual_growth(item):
     year = df_income.iloc[:, 0]
     value = df_income.loc[:, item]
-    fig = px.line(x=year, y=value)
+    fig = px.bar(x=year, y=value,
+                 title='Annual growth analysis')
+    
+    fig.update_yaxes(title_text='Income [VND]')
+    fig.update_xaxes(title_text='Year')
+    
+    
+    return fig
+
+@callback(
+    Output('annual_growth_percent', 'figure'),
+    Input('income_stat_items', 'value')
+    )
+def annual_growth_percent(item):
+    year = df_income.iloc[:, 0]
+    value = df_income.loc[:, item]/df_income.iloc[:, 3] * 100
+    fig = px.bar(x=year, y=value,
+                 title='% so với doanh thu thuần')
+    
+    fig.update_yaxes(title_text='Income [%]')
+    fig.update_xaxes(title_text='Year')
     
     return fig
 
