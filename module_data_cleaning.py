@@ -6,6 +6,7 @@ def wrangle(datapath):
     df.rename(columns={'Unnamed: 0': '0. Year'}, inplace=True)
     # format year column
     df.iloc[:, 0] = pd.to_datetime(df.iloc[:, 0], format='%Y')
+    df.iloc[:, 0] = df.iloc[:, 0].dt.year
     
     return df
 
