@@ -28,7 +28,7 @@ def show_balancesheet_analysis(df_bsheet):
     long_term_asset_name = st.sidebar.selectbox(
         "Chọn tài sản dài hạn:", df_bsheet.columns,index=7)
     total_asset_name = st.sidebar.selectbox(
-        "Chọn tổng tài sản:", df_bsheet.columns,index=15)
+        "Chọn tổng tài sản:", df_bsheet.columns,index=15, key='bsheet_total_asset')
     # verify columns
     debt_name = st.sidebar.selectbox(
         "Chọn nợ phải trả:", df_bsheet.columns, index=16)
@@ -83,28 +83,33 @@ def show_balancesheet_analysis(df_bsheet):
     
     st.plotly_chart(fig2)
     
-    ###--- GET RATIO
-    st.markdown("""
-    **Important ratios:**
+    ###--- LIQUIDITY RATIO
+    liquid_chart, liquid_note = st.columns([3, 1]) 
     
-    The quick ratio: ability to meet its short-term obligations with 
-    its most liquid assets.
-
-    quick_ratio = (current - inventory) / current debt
-    
-    The current ratio: ability to pay short-term obligations or those due 
-    within one year.
+    with liquid_chart:
+        quick_ratio = (short_term_asset - inventory) / debt
+        current_ratio = short_term_asset / debt
         
-    current ratio = current asset / current debt
-    """)
-    quick_ratio = (short_term_asset - inventory) / debt
-    current_ratio = short_term_asset / debt
-    
-    fig3 = go.Figure(data=[
-        go.Line(name='Quick ratio', x=year, y=quick_ratio),
-        go.Line(name='Current Ratio', x=year, y=current_ratio)
-        ])
-    
-    fig3.update_layout(title_text='Balance sheet ratio analysis')
-    
-    st.plotly_chart(fig3)
+        fig3 = go.Figure(data=[
+            go.Line(name='Quick ratio', x=year, y=quick_ratio),
+            go.Line(name='Current Ratio', x=year, y=current_ratio)
+            ])
+        
+        fig3.update_layout(title_text='Balance sheet ratio analysis')
+        
+        st.plotly_chart(fig3)
+        
+    with liquid_note:
+        st.markdown("""
+        **Important liquidity ratios:**
+        
+        The quick ratio: ability to meet its short-term obligations with 
+        its most liquid assets.
+
+        quick_ratio = (current - inventory) / current debt
+        
+        The current ratio: ability to pay short-term obligations or those due 
+        within one year.
+            
+        current ratio = current asset / current debt
+        """)

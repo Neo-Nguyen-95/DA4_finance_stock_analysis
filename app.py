@@ -2,8 +2,6 @@
 # EDA package
 import pandas as pd
 pd.set_option('display.max_columns', None)
-import plotly.express as px
-import plotly.graph_objects as go
 
 import streamlit as st
 
@@ -13,7 +11,7 @@ from module_income_analysis import show_income_report, show_growth_analysis, sho
 from module_bsheet_analysis import show_bsheet_report, show_balancesheet_analysis
 from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysis
 
-company_name = "PNJ"
+company_name = "MWG"
 
 df_income = wrangle(company_name + '_income.csv')
 df_cashflow = wrangle(company_name + '_cashflow.csv')
@@ -54,7 +52,7 @@ EBITDA (Earning before Interest, Taxes, Depreciation and Amortization) = EBIT + 
 
 """)
 
-show_margin_analysis(df_income, df_cashflow)
+show_margin_analysis(df_income, df_cashflow, df_bsheet)
 
 #%% PART II: BALANCE SHEET ANALYSIS
 st.markdown("""
@@ -67,12 +65,11 @@ st.sidebar.markdown("""
 
 show_bsheet_report(df_bsheet)
 
-#%% 2.1: EQUITY BREAK DOWN, RATIO
 show_balancesheet_analysis(df_bsheet)
 
 #%% PART III: CASHFLOW ANALYSIS
 st.markdown("""
-PART III: CASHFLOW ANALYSIS
+## PART III: CASHFLOW ANALYSIS
 **Cash flow report**
 """)
 
@@ -82,7 +79,6 @@ st.sidebar.markdown("""
 
 show_cashflow_report(df_cashflow)
 
-#%% 3.1: 
 show_cashflow_analysis(df_cashflow)
 
 
