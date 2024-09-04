@@ -13,7 +13,7 @@ from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysi
 
 company_name = "FPT"
 
-folder_path = '/Users/dungnguyen/Desktop/Data Science off/Python Programming/3. Publication/Neo_DataBase/Finance data/'
+folder_path = 'data/'
 
 df_income = wrangle(folder_path + company_name + '_income.csv')
 df_cashflow = wrangle(folder_path + company_name + '_cashflow.csv')
