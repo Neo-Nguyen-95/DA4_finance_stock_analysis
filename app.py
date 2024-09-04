@@ -11,7 +11,7 @@ from module_income_analysis import show_income_report, show_growth_analysis, sho
 from module_bsheet_analysis import show_bsheet_report, show_balancesheet_analysis
 from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysis
 
-company_name = "PNJ"
+company_name = "FPT"
 
 folder_path = '/Users/dungnguyen/Desktop/Data Science off/Python Programming/3. Publication/Neo_DataBase/Finance data/'
 
