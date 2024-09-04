@@ -12,7 +12,7 @@ from module_bsheet_analysis import show_bsheet_report, show_balancesheet_analysi
 from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysis
 
 # company_name = "FPT"
-company_name = st.selectbox('Chọn một công ty:', ['FPT', 'MWG', 'PNJ'], index=0)
+company_name = st.sidebar.selectbox('Chọn một công ty:', ['FPT', 'MWG', 'PNJ'], index=0)
 
 folder_path = 'data/'
 
