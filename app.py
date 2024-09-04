@@ -11,11 +11,13 @@ from module_income_analysis import show_income_report, show_growth_analysis, sho
 from module_bsheet_analysis import show_bsheet_report, show_balancesheet_analysis
 from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysis
 
-company_name = "MWG"
+company_name = "PNJ"
 
-df_income = wrangle(company_name + '_income.csv')
-df_cashflow = wrangle(company_name + '_cashflow.csv')
-df_bsheet = wrangle(company_name + '_bsheet.csv')
+folder_path = '/Users/dungnguyen/Desktop/Data Science off/Python Programming/3. Publication/Neo_DataBase/Finance data/'
+
+df_income = wrangle(folder_path + company_name + '_income.csv')
+df_cashflow = wrangle(folder_path + company_name + '_cashflow.csv')
+df_bsheet = wrangle(folder_path + company_name + '_bsheet.csv')
 #%% APP DESIGN
 st.title("WEB APP FOR FINANCIAL ANALYSIS")
 st.sidebar.title("VALUE CONFIRM")
