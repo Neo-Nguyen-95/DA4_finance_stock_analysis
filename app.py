@@ -11,7 +11,8 @@ from module_income_analysis import show_income_report, show_growth_analysis, sho
 from module_bsheet_analysis import show_bsheet_report, show_balancesheet_analysis
 from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysis
 
-company_name = "FPT"
+# company_name = "FPT"
+company_name = st.selectbox('Chọn một công ty:', ['FPT', 'MWG', 'PNJ'], index=0)
 
 folder_path = 'data/'
 
