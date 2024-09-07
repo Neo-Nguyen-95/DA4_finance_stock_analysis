@@ -13,7 +13,7 @@ from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysi
 
 # company_name = "FPT"
 company_name = st.sidebar.selectbox('Chọn một công ty:', 
-                                    ['FPT', 'MWG', 'PNJ', 'DWG', 'FRT'], 
+                                    ['FPT', 'MWG', 'PNJ', 'DGW', 'FRT'], 
                                     index=0)
 
 folder_path = 'data/'
