@@ -1,4 +1,4 @@
-#%% LOAD DATA
+#%% LOAD LIBRARY
 # EDA package
 import pandas as pd
 pd.set_option('display.max_columns', None)
@@ -11,10 +11,21 @@ from module_income_analysis import show_income_report, show_growth_analysis, sho
 from module_bsheet_analysis import show_bsheet_report, show_balancesheet_analysis
 from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysis
 
+import os
+
+#%% LOAD DATA
+
+files = os.listdir('data')
+company_list = []
+for file in files:
+    company_name = file.split('_')[0]
+    if (company_name not in company_list) & (company_name != '.DS'):
+        company_list.append(company_name)
+
 # company_name = "FPT"
 company_name = st.sidebar.selectbox('Chọn một công ty:', 
-                                    ['FPT', 'MWG', 'PNJ', 'DGW', 'FRT'], 
-                                    index=0)
+                                    company_list, 
+                                    'FPT')
 
 folder_path = 'data/'
 
