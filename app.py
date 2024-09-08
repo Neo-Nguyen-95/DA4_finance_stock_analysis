@@ -25,7 +25,7 @@ for file in files:
 # company_name = "FPT"
 company_name = st.sidebar.selectbox('Chọn một công ty:', 
                                     company_list, 
-                                    'FPT')
+                                    index=0)
 
 folder_path = 'data/'
 
