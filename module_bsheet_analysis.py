@@ -3,6 +3,7 @@ from utils import format_number
 import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
+import pandas as pd
 
 def show_bsheet_report(df_bsheet):
     unit = st.checkbox('Change balance sheet unit: %')
@@ -113,3 +114,16 @@ def show_balancesheet_analysis(df_bsheet):
             
         current ratio = current asset / current debt
         """)
+        
+def update_annual_average(df_bsheet, col: str) -> pd.Series:
+    value_shift = df_bsheet[[col]].iloc[0].tolist()
+    (value_shift
+     .extend([asset for asset in df_bsheet[col][:-1]])
+     )
+    value_shift = pd.Series(value_shift)
+
+    value_origin = df_bsheet[col]
+
+    value_average = (value_shift + value_origin)/2
+    
+    return value_average

@@ -108,7 +108,17 @@ def show_margin_analysis(df_income, df_cashflow, df_bsheet):
         "Chọn tổng tài sản:", list(df_bsheet.columns), index=15)
     
     von_chu_so_huu = st.sidebar.selectbox(
-        "Chọn vốn chủ sở hữu: ", df_bsheet.columns,index=19, key=0)
+        "Chọn vốn chủ sở hữu: ", df_bsheet.columns,index=19, key=0
+        )
+    gia_von_hang_ban = st.sidebar.selectbox(
+        "Chọn giá vốn hàng bán: ", df_income.columns, index=4
+        )
+    average_total_asset = st.sidebar.selectbox(
+        "Chọn trung bình vốn năm: ", df_bsheet.columns, index=23
+        )
+    average_inventory = st.sidebar.selectbox(
+        "Chọn trung tồn kho năm: ", df_bsheet.columns, index=24
+        )
      
     ###----- GET VALUES
     
@@ -129,6 +139,8 @@ def show_margin_analysis(df_income, df_cashflow, df_bsheet):
     roa = df_income[loi_nhuan_rong] / df_bsheet[tong_tai_san] * 100
     roe = df_income[loi_nhuan_rong] / df_bsheet[von_chu_so_huu] * 100
     
+    asset_turnover = df_income[doanh_thu_thuan] / df_bsheet[average_total_asset]
+    inventory_turnover = df_income[gia_von_hang_ban] / df_bsheet[average_inventory]
     
     ###----- PLOT MARGIN ANALYSIS       
     fig = go.Figure(data=[
@@ -187,13 +199,62 @@ def show_margin_analysis(df_income, df_cashflow, df_bsheet):
     with roe_note:
         st.markdown("""
                 **Explain:**
-                
-                Return on Asset:
                  
-                Return on Equity
+                Return on Equity:
                 - ROE = Lợi nhuận sau thuế / Tổng vốn chủ sở hữu
                 - Good: > 15%
                  """)
+                 
+    ###--- PLOT EFFICIENCY RATIOS
+    # PLOT ASSET TURNOVER
+    asset_turnover_chart, asset_turnover_note = st.columns([3, 1])
+    
+    with asset_turnover_chart:
+        fig4 = go.Figure(data=[
+            go.Line(name='Asset turnover', x=df_income['0. Year'], y=asset_turnover)
+            ])
+        
+        fig4.update_layout(title_text='Asset turnover',
+                          xaxis_title='Năm',
+                          yaxis_title='Tỉ lệ')
+        
+        st.plotly_chart(fig4)
+        
+        
+    with asset_turnover_note:
+        st.markdown("""
+                    **Explain:**
+                    
+                    - Asset turnover = Doanh thu thuần / Trung bình tổng tài sản
+                    - Trung bình tổng tài sản = Trung bình tổng tài sản đầu và cuối kì
+                    
+                    """)
+    
+    
+    # PLOT INVENTORY TURNOVER
+    inventory_turnover_chart, inventory_turnover_note = st.columns([3, 1])
+    
+    with inventory_turnover_chart:
+        fig5 = go.Figure(data=[
+            go.Line(name='Inventory turnover', x=df_income['0. Year'], y=inventory_turnover)
+            ])
+        
+        fig5.update_layout(title_text='Inventory turnover',
+                          xaxis_title='Năm',
+                          yaxis_title='Tỉ lệ')
+        
+        st.plotly_chart(fig5)
+        
+        
+    with inventory_turnover_note:
+        st.markdown("""
+                    **Explain:**
+                    
+                    - Inventory turnover = Giá vốn hàng bán / Trung bình tồn kho
+                    - Trung bình tồn kho = Trung bình tồn kho đầu và cuối kì
+                    
+                    """)
+    
 
 
 

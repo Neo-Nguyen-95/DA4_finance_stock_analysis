@@ -7,9 +7,15 @@ import streamlit as st
 
 # my customized package
 from module_data_cleaning import wrangle
-from module_income_analysis import show_income_report, show_growth_analysis, show_margin_analysis
-from module_bsheet_analysis import show_bsheet_report, show_balancesheet_analysis
-from module_cashflow_analysis import show_cashflow_report, show_cashflow_analysis
+from module_income_analysis import (
+    show_income_report, show_growth_analysis, show_margin_analysis
+    )
+from module_bsheet_analysis import (
+    show_bsheet_report, show_balancesheet_analysis, update_annual_average
+    )
+from module_cashflow_analysis import (
+    show_cashflow_report, show_cashflow_analysis
+    )
 
 import os
 
@@ -32,6 +38,13 @@ folder_path = 'data/'
 df_income = wrangle(folder_path + company_name + '_income.csv')
 df_cashflow = wrangle(folder_path + company_name + '_cashflow.csv')
 df_bsheet = wrangle(folder_path + company_name + '_bsheet.csv')
+
+average_asset = update_annual_average(df_bsheet, 'TỔNG CỘNG NGUỒN VỐN')
+df_bsheet['TRUNG BÌNH VỐN NĂM'] = average_asset
+
+average_inventory = update_annual_average(df_bsheet, 'IV. Tổng hàng tồn kho')
+df_bsheet['TRUNG BÌNH TỒN KHO'] = average_inventory
+
 #%% APP DESIGN
 st.title("WEB APP FOR FINANCIAL ANALYSIS")
 st.sidebar.title("VALUE CONFIRM")
