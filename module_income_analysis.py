@@ -252,7 +252,7 @@ def show_margin_analysis(df_income, df_cashflow, df_bsheet):
                     
                     - Inventory turnover = Giá vốn hàng bán / Trung bình tồn kho
                     - Trung bình tồn kho = Trung bình tồn kho đầu và cuối kì
-                    
+                
                     """)
     
 
